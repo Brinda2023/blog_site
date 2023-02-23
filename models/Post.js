@@ -1,23 +1,28 @@
+
+// Post Model which uses mongoose 
+
+
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
       unique: true,
     },
-    desc: {
+    content: {
       type: String,
       required: true,
     },
     username: {
       type: String,
       required: true,
+      unique: true,
     },
     categories: {
-      type: Array,
-      required: false,
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Category"
     },
   },
   { timestamps: true }
