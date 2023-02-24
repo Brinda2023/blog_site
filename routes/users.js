@@ -1,8 +1,11 @@
-const router = require("express").Router();
-const UsersController = require("../controllers/userController");
-const checkAuth = require("../middleware/check-auth");
+const router = require("express").Router(); // Creating router
+const UsersController = require("../controllers/userController"); // Importing controller
+const checkAuth = require("../middleware/check-auth"); // Importing check auth file
+const { loginValidation } = require("../validation.js"); //Importing validations
 
-router.put("/:id", checkAuth, UsersController.update);
+// Calling controller
+
+router.put("/:id", loginValidation, checkAuth, UsersController.update);
 router.delete("/:id", checkAuth, UsersController.destroy);
 router.get("/get/:id", checkAuth, UsersController.findOne);
 

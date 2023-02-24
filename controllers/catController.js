@@ -1,10 +1,15 @@
+// Importing model
+
 const Category = require("../models/Category");
 
+// Inserts category object in database
+
 exports.create = async (req, res) => {
+  // Creating new category object
   const newCat = new Category({
     name: req.body.name,
-    posts: req.body.posts
   });
+  // Save category object in database
   try {
     const savedCat = await newCat.save();
     res.status(200).json(savedCat);
@@ -12,6 +17,8 @@ exports.create = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+// Reads all category data from database
 
 exports.findAll = async (req, res) => {
   try {
@@ -22,10 +29,15 @@ exports.findAll = async (req, res) => {
   }
 };
 
+// Update category object in database
+
 exports.update = async (req, res) => {
+  // Creates category object and updates it in database by using param id
   try {
     const id = req.params.id;
-    const updatedcat = req.body;
+    const updatedcat = new Category({
+      name: req.body.name,
+    });
     const options = { new: true };
     const result = await Category.findByIdAndUpdate(id, updatedcat, options);
     res.send(result);
@@ -34,7 +46,10 @@ exports.update = async (req, res) => {
   }
 };
 
+// Delete category object in database
+
 exports.destroy = async (req, res) => {
+  // Find category object from database and delete it by using param id
   try {
     const id = req.params.id;
     const cat = await Category.findByIdAndDelete(id);

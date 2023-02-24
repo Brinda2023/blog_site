@@ -1,16 +1,21 @@
+// Importing files
+
 require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const mongoString = process.env.DATABASE_URL;
-
+const mongoString = process.env.DATABASE_URL; // Database connection string
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
 
+// Connecting Database
+
 mongoose.connect(mongoString);
 const database = mongoose.connection;
+
+// Checking if database is connected or not
 
 database.on("error", (error) => {
   console.log(error);
@@ -18,6 +23,8 @@ database.on("error", (error) => {
 database.once("connected", () => {
   console.log("Database Connected");
 });
+
+// Creating server
 
 const app = express();
 

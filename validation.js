@@ -1,4 +1,8 @@
+// importing express validator
+
 const { check } = require("express-validator");
+
+// All the validations to check if value is valid or not
 
 exports.signupValidation = [
   check("username", "Name is requied").not().isEmpty(),

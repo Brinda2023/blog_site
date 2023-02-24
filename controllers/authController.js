@@ -54,6 +54,7 @@ exports.register = async (req, res) => {
 
 // Login if User is registered 
 // Generates JWT token
+// Login using email & password
 
 exports.login = async (req, res) => {
   User.find({ email: req.body.email })

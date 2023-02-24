@@ -1,7 +1,6 @@
 
 // Category Model which uses mongoose 
 
-
 const mongoose = require("mongoose");
 
 const CategorySchema = new mongoose.Schema(
@@ -10,11 +9,7 @@ const CategorySchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-    },
-    posts: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Post",
-    },
+    }
   },
   { timestamps: true }
 );
