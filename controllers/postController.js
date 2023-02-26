@@ -1,5 +1,6 @@
 // Importing model
 
+const Category = require("../models/Category");
 const Post = require("../models/Post");
 
 // Creating new post and insert it into database
@@ -10,11 +11,20 @@ exports.create = async (req, res) => {
     name: req.body.name,
     content: req.body.content,
     username: req.body.username,
-    categories: req.body.categories,
+    category: req.body.category,
   });
   // Save new post object into database
   try {
+    console.log(newPost);
     const savedPost = await newPost.save();
+    console.log(savedPost);
+
+    // const category = await Category.find({ name: savedPost.category });
+    // console.log(category);
+    // category.post.push(newPost);
+    // console.log(category);
+    // await category.save();
+    
     res.status(200).json(savedPost);
   } catch (err) {
     res.status(500).json(err);
@@ -33,10 +43,11 @@ exports.update = async (req, res) => {
         const id = req.params.id;
         // Creating new post
         const updatedPost = new Post({
+          _id: id,
           name: req.body.name,
           content: req.body.content,
           username: req.body.username,
-          categories: req.body.categories,
+          category: req.body.category,
         });
         const options = { new: true };
         // Updating new post in database
@@ -60,6 +71,9 @@ exports.destroy = async (req, res) => {
     // Find post using param id
     const post = await Post.findById(req.params.id);
     // Only user can delete the post who created the post
+    console.log("req.params.id : " + req.params.id);
+    console.log("post.username : " + post.username);
+    console.log("req.body.username : " + req.body.username);
     if (post.username === req.body.username) {
       try {
         await post.delete();
@@ -118,8 +132,8 @@ exports.findAll = async (req, res) => {
     } else if (catName) {
       //search posts by category
       posts = await Post.find({
-        categories: {
-          $in: [catName],
+        category: {
+          $or: [{ content: { $regex: category } }],
         },
       }).sort({ createdAt: -1 });
     } else {

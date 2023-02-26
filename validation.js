@@ -26,8 +26,8 @@ exports.categoriesValidation = [
 ];
 
 exports.postsValidation = [
-  check("title", "Title is requied").not().isEmpty(),
-  check("desc", "Desc is requied").not().isEmpty(),
+  check("name", "Title is requied").not().isEmpty(),
+  check("content", "Desc is requied").not().isEmpty(),
   check("username", "Username is requied").not().isEmpty(),
   check("categories", "Categories are requied").not().isEmpty(),
 ];

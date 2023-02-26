@@ -36,6 +36,7 @@ exports.update = async (req, res) => {
   try {
     const id = req.params.id;
     const updatedcat = new Category({
+      _id: req.params.id,
       name: req.body.name,
     });
     const options = { new: true };

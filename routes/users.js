@@ -8,5 +8,6 @@ const { loginValidation } = require("../validation.js"); //Importing validations
 router.put("/:id", loginValidation, checkAuth, UsersController.update);
 router.delete("/:id", checkAuth, UsersController.destroy);
 router.get("/get/:id", checkAuth, UsersController.findOne);
+router.get("/get",checkAuth, UsersController.findAll);
 
 module.exports = router;
